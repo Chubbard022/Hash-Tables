@@ -14,7 +14,7 @@ class Pair:
 class BasicHashTable:
     def __init__(self, capacity):
         self.capacity = capacity
-        self.elements = [None] * self.capacity
+        self.storage = [None] * self.capacity
 
 def hash(string, max):                                                                                                                     
     hash = 5381
@@ -31,9 +31,9 @@ def hash_table_insert(hash_table, key, value):
     index = hash(key,hash_table.capacity)
     pair = Pair(key,value)
 
-    if hash_table.elements[index] != None:
+    if hash_table.storage[index] != None:
         print(f"Warning, {value} is already a key: value pair")
-    hash_table.elements[index] = Pair
+    hash_table.storage[index] = pair
 # '''
 # Fill this in.
 
@@ -42,8 +42,8 @@ def hash_table_insert(hash_table, key, value):
 def hash_table_remove(hash_table, key):
     index = hash(key,hash_table.capacity)
 
-    if hash_table.elements[index] != None:
-        hash_table.elements[index] = None
+    if hash_table.storage[index] != None:
+        hash_table.storage[index] = None
     else:
         print(f"warning, key {index} was not found in hash table")
 
@@ -54,9 +54,9 @@ def hash_table_remove(hash_table, key):
 # '''
 def hash_table_retrieve(hash_table, key):
     index = hash(key, hash_table.capacity)
-    if hash_table.elements[index] is None:
+    if hash_table.storage[index] is None:
         return None
-    return hash_table.elements[index].value
+    return hash_table.storage[index].value
 
 def Testing():
     ht = BasicHashTable(16)
