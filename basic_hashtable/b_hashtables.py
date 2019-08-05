@@ -7,25 +7,20 @@ class Pair:
     def __init__(self, key, value):
         self.key = key
         self.value = value
-
-
 # '''
 # Basic hash table
 # Fill this in.  All storage values should be initialized to None
 # '''
 class BasicHashTable:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        self.elements = [None] * self.capacity
 
-
-# '''
-# Fill this in.
-# Research and implement the djb2 hash function
-# '''
 def hash(string, max):
-    pass
-
-
+    hash = 5381 
+    for c in string:
+        hash = ((hash << 5) + hash ) + ord(c)
+    return hash % max
 # '''
 # Fill this in.
 
