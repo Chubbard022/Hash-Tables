@@ -16,10 +16,10 @@ class BasicHashTable:
         self.capacity = capacity
         self.elements = [None] * self.capacity
 
-def hash(string, max):
-    hash = 5381 
+def hash(string, max):                                                                                                                     
+    hash = 5381
     for c in string:
-        hash = ((hash << 5) + hash ) + ord(c)
+        hash = (( hash << 5) + hash) + ord(c)
     return hash % max
 # '''
 # Fill this in.
@@ -31,19 +31,19 @@ def hash_table_insert(hash_table, key, value):
     index = hash(key,hash_table.capacity)
     pair = Pair(key,value)
 
-    if hash_table.storage[index] != None:
+    if hash_table.elements[index] != None:
         print(f"Warning, {value} is already a key: value pair")
-    hash_table.storage[index] = Pair
+    hash_table.elements[index] = Pair
 # '''
 # Fill this in.
 
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    index = hash(key,hash_table)
+    index = hash(key,hash_table.capacity)
 
-    if hash_table.storage[index] != None:
-        hash_table.storage[index] = None
+    if hash_table.elements[index] != None:
+        hash_table.elements[index] = None
     else:
         print(f"warning, key {index} was not found in hash table")
 
@@ -53,8 +53,10 @@ def hash_table_remove(hash_table, key):
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
-
+    index = hash(key, hash_table.capacity)
+    if hash_table.elements[index] is None:
+        return None
+    return hash_table.elements[index].value
 
 def Testing():
     ht = BasicHashTable(16)
