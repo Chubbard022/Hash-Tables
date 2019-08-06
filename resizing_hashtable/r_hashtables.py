@@ -35,7 +35,11 @@ def hash(string, max):
 # Hint: Used the LL to handle collisions
 # '''
 def hash_table_insert(hash_table, key, value):
-    pass
+    index = hash(hash_table,key)
+    linked_pair = LinkedPair(key,value)
+
+    if hash_table.storage[index] != None:
+        hash_table.storage[index].next = linked_pair
 
 
 # '''
@@ -44,24 +48,34 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    pass
+    index = hash(key,hash_table.capacity)
 
-
+    if hash_table.storage[index] != None:
+        while hash_table.storage[index].next != key
+            if hash_table.storage[index].next == key:
+                hash_table.storage[index].next = [None]
+    else:
+        return None
 # '''
 # Fill this in.
 
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    pass
+    index = hash(key,hash_table.capacity)
 
+    if hash_table.storage[index] != None:
+        while hash_table.storage[index].next != None:
+            return hash_table.storage[index].next
+    else:
+        return None
 # '''
 # Fill this in
 # '''
 def hash_table_resize(hash_table):
-    pass
-
-
+    if hash_table.capacity == hash_table.storage:
+        hash_table.capacity * 2
+        
 def Testing():
     ht = HashTable(2)
 
