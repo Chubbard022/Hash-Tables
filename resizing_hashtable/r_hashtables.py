@@ -35,12 +35,18 @@ def hash(string, max):
 # Hint: Used the LL to handle collisions
 # '''
 def hash_table_insert(hash_table, key, value):
-    index = hash(hash_table,key)
-    linked_pair = LinkedPair(key,value)
+    index = hash(key, hash_table.capacity)
+    pair = hash_table.storage[index]
 
-    if hash_table.storage[index] != None:
-        hash_table.storage[index].next = linked_pair
-
+    while pair is not None and pair.key != key:
+        pair = pair.next
+    
+    if pair is None:
+        lined_pair = LinkedPair(key, value)
+        lined_pair.next = hash_table.storage[index]
+        hash_table.storage[index] = lined_pair
+    else:
+        pair.value = value
 
 # '''
 # Fill this in.
@@ -48,35 +54,51 @@ def hash_table_insert(hash_table, key, value):
 # If you try to remove a value that isn't there, print a warning.
 # '''
 def hash_table_remove(hash_table, key):
-    index = hash(key,hash_table.capacity)
+    index = hash(key, hash_table.capacity)
 
-    if hash_table.storage[index] != None:
-        while hash_table.storage[index].next != key
-            if hash_table.storage[index].next == key:
-                hash_table.storage[index].next = [None]
+    if hash_table.storage[index] is not None:
+        hash_table.storage[index] = None
     else:
-        return None
+        print(f"warning, {key} not found")
 # '''
 # Fill this in.
 
 # Should return None if the key is not found.
 # '''
 def hash_table_retrieve(hash_table, key):
-    index = hash(key,hash_table.capacity)
+    # get the index in the hash table
+    index = hash(key, hash_table.capacity)
+    pair = hash_table.storage[index]
 
-    if hash_table.storage[index] != None:
-        while hash_table.storage[index].next != None:
-            return hash_table.storage[index].next
-    else:
+    while pair is not None and pair.key != key:
+        pair = pair.next
+    if pair is None:
         return None
+    return pair.value
 # '''
 # Fill this in
 # '''
 def hash_table_resize(hash_table):
-    if hash_table.capacity == hash_table.storage:
-        hash_table.capacity * 2
-        
+    new_table = HashTable(hash_table.capacity * 2)
+
+    for index in range(0, len(hash_table.storage)):
+        current_pair = hash_table.storage[index]
+        while current_pair is not None:
+            hash_table_insert(new_table, current_pair.key, current_pair.value)
+            current_pair = current_pair.next
+
+    return new_table
+
 def Testing():
+    # ht = HashTable(16)
+    # hash_table_insert(ht, "A", "Value for A")
+    # hash_table_insert(ht, "Q", "Value for Q")
+    # print(hash_table_retrieve(ht, "A"))
+    # print(hash_table_retrieve(ht, "Q"))
+    # hash_table_remove(ht, "A")
+    # print(hash_table_retrieve(ht, "A"))
+    # print(hash_table_retrieve(ht, "Q"))
+
     ht = HashTable(2)
 
     hash_table_insert(ht, "line_1", "Tiny hash table")
@@ -95,8 +117,4 @@ def Testing():
           + " to " + str(new_capacity) + ".")
 
 
-Testing()
-
-
-
-
+# Testing()
